@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  wordpress:
+    container_name: vsf_woo
+    image: wordpress:php7.1-apache
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: woo
+      WORDPRESS_DB_NAME: woo
+      WORDPRESS_ALLOW_ROOT: 1
+    depends_on:
+      - db
+    volumes:
+      - 'woodata:/var/www/html'
+
+  db:
+    container_name: vsf_mysql
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: woo
+      MYSQL_DATABASE: woo
+      MYSQL_USER: woo
+      MYSQL_PASSWORD: woo
+    volumes:
+      - 'dbdata:/var/lib/mysql'
+
+volumes:
+  woodata:
+  dbdata:

@@ -1,0 +1,18 @@
+{
+  "name": "woocommerce2vuestorefront",
+  "version": "1.0.0-alpha",
+  "description": "Woocommerce to VSF static data indexer",
+  "homepage": "https://divante.co",
+  "main": "cli.js",
+  "author": "mkucmus",
+  "license": "MIT",
+  "dependencies": {
+    "app-root-path": "^2.1.0",
+    "commander": "^2.19.0",
+    "elasticsearch": "^15.1.1",
+    "html-entities": "^1.2.1",
+    "promise-parallel-throttle": "^3.2.0",
+    "winston": "^3.1.0",
+    "woocommerce-api": "^1.4.2"
+  }
+}
