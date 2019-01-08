@@ -1,17 +1,19 @@
 
 # Introduction
 
-*woocommerce2vuestorefront* indexer is standalone application designed to feed VSF's read models with data right from WooCommerce.
+*woocommerce2vuestorefront* indexer is standalone application designed to feed VSF's catalog models with data right from WooCommerce.
 
- ## Video demo
+ ## Vue Storefront demo
  [![See how it works!](https://github.com/DivanteLtd/vue-storefront/raw/master/docs/.vuepress/public/Fil-Rakowski-VS-Demo-Youtube.png)](https://www.youtube.com/watch?v=L4K-mq9JoaQ)
-Sign up for a demo at https://vuestorefront.io/ (Vue Storefront integrated with Pimcore OR Magento2).
+Sign up for a demo at https://vuestorefront.io/ (Vue Storefront integrated with Pimcore, Magento2, WooCommerce ...).
+
+You should install Vue Storefront prior to use this indexer (which is feeding the Vue Storefront datbase). [Read the installation guide](https://divanteltd.github.io/vue-storefront/guide/installation/linux-mac.html).
 
 # WooCommerce indexer
-This project provides indexer for *WooCommerce* data structures
+This project provides an indexer for *WooCommerce* data structures
 
-The module is created as a standalone application which provides:
-- gathering, processing and pushing: attributes, products and categories to Elasticsearch Search Engine (VSF Read model)
+The module is a standalone application that:
+- does process and index: attributes, products and categories to Elasticsearch Search Engine (VSF Catalog model)
 
 # Setup and installation
 ## Requirements 
@@ -21,8 +23,8 @@ The module is created as a standalone application which provides:
 
 
 ## Pre-configuration on WooCommerce side
-1. Make sure you have configured REST API properly, and REST API is publicly accessible
-2. Generate *consumer key* and *consumer secret* in advenced tab in WooCommerce settings (read permissions are enough)
+1. Make sure you have configured REST API properly, and the REST API is publicly accessible
+2. Generate *consumer key* and *consumer secret* in advenced tab in WooCommerce settings (read only permissions are sufficient)
 3. Having already installed VSF API, you should build an index with proper mapping for each type, you can achive this by
 running at the VSF API project's root dir:
 `
@@ -62,6 +64,7 @@ In `db` section contained in `config.js` file you should adjust some info about 
 > notice that indexName can be changed but it should stay consistent with VSF configuration. 
 
 # Populate WooCommerce data in Elasticsearch
+
 ## Run indexers
 Please execute indexers one by one with:
 1. attributes: `nodejs cli.js attributes` 
@@ -77,13 +80,18 @@ and that's it.
 - docker-compose
 
 ## Run Wordpress with WooCommerce included (dockerized)
-To simplify developing you can use one of existing tools, for instance: ready-to-use docker images nad wp-cli:
+
+To simplify the development process You may want to use one of existing tools, for instance: ready-to-use docker images and `wp-cli`:
+
 1. run containers by using `docker-compose.dev.yml` located in `dev/docker/` subdirectory: `docker-compose -f docker-compose.dev.yml up`
 > it's recommended to run this command being inside `docker` dir, because of docker's networking naming conventions which will be used in further steps
+
 2. install Wordpress fresh instance: `docker run -it --rm --volumes-from vsf_woo --network docker_default wordpress:cli wp core install --url="localhost" --title="VSFvsWoo" --admin_user="admin" --admin_email="developer@company.com" --admin_password=admin`
 > notice what parameters should be passed with command above: network and volumes-from should cover names set in docker-compose.dev.yml
 > it creates a new wordpress's instance available on `localhost` and with credentials `admin`/`admin`
+
 3. install woocommerce plugin via wp-cli: `docker run -it --rm --volumes-from vsf_woo --network docker_default wordpress:cli wp plugin install woocommerce --activate`
+
 4. add some attributes and options, running:
 ```
    docker run -it --rm --volumes-from vsf_woo --network docker_default wordpress:cli wp wc product_attribute create --name=Size --type=options --user=admin
