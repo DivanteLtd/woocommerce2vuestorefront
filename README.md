@@ -24,7 +24,7 @@ The module is a standalone application that:
 
 ## Pre-configuration on WooCommerce side
 1. Make sure you have configured REST API properly, and the REST API is publicly accessible
-2. Generate *consumer key* and *consumer secret* in advenced tab in WooCommerce settings (read only permissions are sufficient)
+2. Generate *consumer key* and *consumer secret* in advanced tab in WooCommerce settings (read only permissions are sufficient)
 3. Having already installed VSF API, you should build an index with proper mapping for each type, you can achive this by
 running at the VSF API project's root dir:
 `
